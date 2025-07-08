@@ -1,8 +1,8 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>Profil Sayfam</title>
+  <title> </title> <!-- index.html yazısını engellemek için boşluk bırakıldı -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
@@ -17,9 +17,10 @@
     #bg-video {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      transform: scale(1.2);
       z-index: -1;
     }
 
@@ -37,7 +38,7 @@
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      border: 3px solid white;
+      border: 3px solid #9B59B6; /* Mor dış çizgi */
       object-fit: cover;
       margin-bottom: 5px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -79,20 +80,22 @@
 
     a.link-button {
       padding: 12px 30px;
-      border: 2px solid white;
+      border: 2px solid #9B59B6; /* Mor dış çizgi */
       border-radius: 30px;
       text-decoration: none;
       font-weight: bold;
-      transition: all 0.4s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: 1.1rem;
+      width: 60px;
+      height: 60px;
+      position: relative;
+      color: inherit;
+      transition: all 0.4s ease;
       transform: scale(1);
       box-shadow: none;
       cursor: pointer;
-      width: 60px;
-      height: 60px;
     }
 
     a.link-button i {
@@ -100,56 +103,114 @@
       font-size: 28px;
     }
 
-    /* Marka renkleri */
-    .link-button.steam i { color: #171A21; }
-    .link-button.spotify i { color: #1DB954; }
-    .link-button.discord i { color: #7289DA; }
+    a.link-button.steam i {
+      color: #171A21;
+    }
 
-    a.link-button:hover {
-      background-color: #7D3C98;
-      border-color: #9B59B6;
-      transform: scale(1.15) rotate(-3deg);
+    a.link-button.spotify i {
+      color: #1DB954;
+    }
+
+    a.link-button.discord i {
+      color: #7289DA;
+    }
+
+    /* Hover background color ikon rengine göre parlak ve transparan */
+    a.link-button.steam:hover {
+      background-color: rgba(23, 26, 33, 0.8);
+      border-color: #171A21;
       box-shadow:
-        0 0 15px #BB8FCE,
-        0 0 25px #9B59B6,
-        0 0 35px #7D3C98;
+        0 0 15px rgba(23, 26, 33, 0.8),
+        0 0 25px rgba(23, 26, 33, 0.8),
+        0 0 35px rgba(23, 26, 33, 0.8);
+      color: #171A21;
+    }
+
+    a.link-button.spotify:hover {
+      background-color: rgba(29, 185, 84, 0.85);
+      border-color: #1DB954;
+      box-shadow:
+        0 0 15px rgba(29, 185, 84, 0.85),
+        0 0 25px rgba(29, 185, 84, 0.85),
+        0 0 35px rgba(29, 185, 84, 0.85);
+      color: #1DB954;
+    }
+
+    a.link-button.discord:hover {
+      background-color: rgba(114, 137, 218, 0.85);
+      border-color: #7289DA;
+      box-shadow:
+        0 0 15px rgba(114, 137, 218, 0.85),
+        0 0 25px rgba(114, 137, 218, 0.85),
+        0 0 35px rgba(114, 137, 218, 0.85);
+      color: #7289DA;
+    }
+
+    /* Genel hover efektleri */
+    a.link-button:hover {
+      transform: scale(1.15) rotate(-3deg);
       text-shadow: 0 0 5px white;
     }
 
+    /* Ses butonu - renkler ve hover arka plan + yazı rengi ayarlı */
     #sound-toggle {
       padding: 10px 30px;
-      background: rgba(255,255,255,0.7);
-      border: none;
+      background: none !important;
+      border: 2px solid #9B59B6;
       border-radius: 5px;
       cursor: pointer;
-      color: black;
       font-weight: bold;
       margin: 0 auto;
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       width: max-content;
       font-size: 1.1rem;
       transition: all 0.4s ease;
       transform: scale(1);
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      box-shadow: none;
+      color: #ff4d4d; /* Başlangıç kırmızı: Sesi Aç */
       letter-spacing: 1.2px;
+      user-select: none;
     }
 
-    #sound-toggle:hover {
-      background-color: #9B59B6;
-      color: white;
-      transform: scale(1.1) rotate(3deg);
+    #sound-toggle.sound-on {
+      color: #27ae60; /* Yeşil: Sesi Kapat */
+      border-color: #27ae60;
+    }
+
+    #sound-toggle:hover:not(.sound-on) {
+      background-color: rgba(29, 185, 84, 0.2);
+      color: #1DB954;
+      border-color: #1DB954;
       box-shadow:
-        0 0 20px #BB8FCE,
-        0 0 30px #9B59B6;
-      letter-spacing: 2px;
+        0 0 15px rgba(29, 185, 84, 0.6),
+        0 0 25px rgba(29, 185, 84, 0.4),
+        0 0 35px rgba(29, 185, 84, 0.2);
     }
 
-    /* Bildirim */
+    #sound-toggle:hover.sound-on {
+      background-color: rgba(255, 77, 77, 0.2);
+      color: #ff4d4d;
+      border-color: #ff4d4d;
+      box-shadow:
+        0 0 15px rgba(255, 77, 77, 0.6),
+        0 0 25px rgba(255, 77, 77, 0.4),
+        0 0 35px rgba(255, 77, 77, 0.2);
+    }
+
+    #sound-toggle .icon {
+      font-size: 1.3rem;
+      transition: color 0.4s ease;
+      color: inherit;
+    }
+
+    /* Discord kopyalama bildirimi animasyonlu yapıldı */
     .copy-notification {
       position: fixed;
       top: 20px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(-10px);
       background-color: #2ECC71;
       color: white;
       padding: 12px 25px;
@@ -158,18 +219,41 @@
       font-size: 1.1rem;
       z-index: 999;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      display: none;
-      animation: fadeInOut 2s ease;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    @keyframes fadeInOut {
-      0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
-      10% { opacity: 1; transform: translateX(-50%) translateY(0); }
-      90% { opacity: 1; }
-      100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+    .copy-notification.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
     }
 
-    /* Animasyonlar */
+    /* Tooltip stil */
+    .tooltip {
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0,0,0,0.75);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      user-select: none;
+      z-index: 20;
+    }
+
+    a.link-button:hover .tooltip {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
     @keyframes fadeInUp {
       to {
         opacity: 1;
@@ -182,7 +266,103 @@
       50%{background-position:100% 50%;}
       100%{background-position:0% 50%;}
     }
+
+    /* --- Mobil uyumluluk için eklenen CSS --- */
+    @media (max-width: 768px) {
+      .container {
+        padding-top: 60px;
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .profile-img {
+        width: 120px;
+        height: 120px;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+      }
+
+      .links-container {
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      a.link-button {
+        width: 50px;
+        height: 50px;
+        font-size: 1rem;
+        padding: 10px;
+      }
+
+      a.link-button i {
+        font-size: 22px;
+      }
+
+      #sound-toggle {
+        padding: 8px 20px;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 250px;
+        margin-top: 15px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 2rem;
+        letter-spacing: 2px;
+      }
+
+      .profile-img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .links-container {
+        gap: 15px;
+      }
+
+      a.link-button {
+        width: 45px;
+        height: 45px;
+        font-size: 0.9rem;
+      }
+
+      a.link-button i {
+        font-size: 20px;
+      }
+    }
   </style>
+
+  <script>
+    const title = "RYCLES";
+    let index = 1;
+    let direction = 1;
+
+    function animateTitle() {
+      document.title = title.substring(0, index);
+      if (direction === 1) {
+        index++;
+        if (index > title.length) {
+          direction = -1;
+          index = title.length - 1;
+        }
+      } else {
+        index--;
+        if (index < 1) {
+          direction = 1;
+          index = 1;
+        }
+      }
+      setTimeout(animateTitle, 500);
+    }
+
+    window.addEventListener("DOMContentLoaded", animateTitle);
+  </script>
 </head>
 <body>
 
@@ -202,48 +382,56 @@
     <div class="links-container">
       <a href="https://steamcommunity.com/profiles/76561199240495320" class="link-button steam" target="_blank" aria-label="Steam">
         <i class="fab fa-steam"></i>
+        <span class="tooltip">Steam</span>
       </a>
       <a href="https://open.spotify.com/user/s%C3%BCleyman1905.?si=cc89f30e77da4649" class="link-button spotify" target="_blank" aria-label="Spotify">
         <i class="fab fa-spotify"></i>
+        <span class="tooltip">Spotify</span>
       </a>
       <a href="#" class="link-button discord" id="discord-copy" title="rycless" aria-label="Discord">
         <i class="fab fa-discord"></i>
+        <span class="tooltip">Discord</span>
       </a>
     </div>
 
-    <button id="sound-toggle">Sesi Aç</button>
+    <button id="sound-toggle" aria-pressed="false" aria-label="Sesi Aç">
+      <i class="fas fa-volume-mute icon"></i>
+      Sesi Aç
+    </button>
   </div>
 
-  <div class="copy-notification" id="copyMsg">Discord adı kopyalandı: <strong>rycless</strong></div>
+  <div id="copy-notification" class="copy-notification" role="alert" aria-live="assertive">Kopyalandı!</div>
 
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script>
-    const video = document.getElementById('bg-video');
     const btn = document.getElementById('sound-toggle');
-    const discordBtn = document.getElementById('discord-copy');
-    const copyMsg = document.getElementById('copyMsg');
+    const video = document.getElementById('bg-video');
 
     btn.addEventListener('click', () => {
-      if(video.muted){
-        video.muted = false;
-        btn.textContent = "Sesi Kapat";
+      video.muted = !video.muted;
+      if (video.muted) {
+        btn.innerHTML = '<i class="fas fa-volume-mute icon"></i> Sesi Aç';
+        btn.setAttribute('aria-pressed', 'false');
+        btn.classList.remove('sound-on');
       } else {
-        video.muted = true;
-        btn.textContent = "Sesi Aç";
+        btn.innerHTML = '<i class="fas fa-volume-high icon"></i> Sesi Kapat';
+        btn.setAttribute('aria-pressed', 'true');
+        btn.classList.add('sound-on');
       }
     });
 
+    // Discord kopyalama
+    const discordBtn = document.getElementById('discord-copy');
+    const copyNotification = document.getElementById('copy-notification');
+
     discordBtn.addEventListener('click', () => {
-      const discordTag = "rycless";
-      navigator.clipboard.writeText(discordTag).then(() => {
-        copyMsg.style.display = "block";
-        copyMsg.classList.add('show');
+      navigator.clipboard.writeText('rycless').then(() => {
+        copyNotification.textContent = 'Discord adı kopyalandı: rycless';
+        copyNotification.classList.add('show');
         setTimeout(() => {
-          copyMsg.style.display = "none";
-          copyMsg.classList.remove('show');
+          copyNotification.classList.remove('show');
         }, 2000);
       });
     });
   </script>
 </body>
-</html>
+</html> 
