@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title> </title> <!-- index.html yazısını engellemek için boşluk bırakıldı -->
+  <link rel="icon" href="favicon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
@@ -38,7 +39,7 @@
       width: 150px;
       height: 150px;
       border-radius: 50%;
-      border: 3px solid #9B59B6; /* Mor dış çizgi */
+      border: 3px solid #9B59B6;
       object-fit: cover;
       margin-bottom: 5px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -80,7 +81,7 @@
 
     a.link-button {
       padding: 12px 30px;
-      border: 2px solid #9B59B6; /* Mor dış çizgi */
+      border: 2px solid #9B59B6;
       border-radius: 30px;
       text-decoration: none;
       font-weight: bold;
@@ -103,56 +104,36 @@
       font-size: 28px;
     }
 
-    a.link-button.steam i {
-      color: #171A21;
-    }
+    a.link-button.steam i { color: #171A21; }
+    a.link-button.spotify i { color: #1DB954; }
+    a.link-button.discord i { color: #7289DA; }
 
-    a.link-button.spotify i {
-      color: #1DB954;
-    }
-
-    a.link-button.discord i {
-      color: #7289DA;
-    }
-
-    /* Hover background color ikon rengine göre parlak ve transparan */
     a.link-button.steam:hover {
       background-color: rgba(23, 26, 33, 0.8);
       border-color: #171A21;
-      box-shadow:
-        0 0 15px rgba(23, 26, 33, 0.8),
-        0 0 25px rgba(23, 26, 33, 0.8),
-        0 0 35px rgba(23, 26, 33, 0.8);
+      box-shadow: 0 0 15px rgba(23, 26, 33, 0.8), 0 0 25px rgba(23, 26, 33, 0.8), 0 0 35px rgba(23, 26, 33, 0.8);
       color: #171A21;
     }
 
     a.link-button.spotify:hover {
       background-color: rgba(29, 185, 84, 0.85);
       border-color: #1DB954;
-      box-shadow:
-        0 0 15px rgba(29, 185, 84, 0.85),
-        0 0 25px rgba(29, 185, 84, 0.85),
-        0 0 35px rgba(29, 185, 84, 0.85);
+      box-shadow: 0 0 15px rgba(29, 185, 84, 0.85), 0 0 25px rgba(29, 185, 84, 0.85), 0 0 35px rgba(29, 185, 84, 0.85);
       color: #1DB954;
     }
 
     a.link-button.discord:hover {
       background-color: rgba(114, 137, 218, 0.85);
       border-color: #7289DA;
-      box-shadow:
-        0 0 15px rgba(114, 137, 218, 0.85),
-        0 0 25px rgba(114, 137, 218, 0.85),
-        0 0 35px rgba(114, 137, 218, 0.85);
+      box-shadow: 0 0 15px rgba(114, 137, 218, 0.85), 0 0 25px rgba(114, 137, 218, 0.85), 0 0 35px rgba(114, 137, 218, 0.85);
       color: #7289DA;
     }
 
-    /* Genel hover efektleri */
     a.link-button:hover {
       transform: scale(1.15) rotate(-3deg);
       text-shadow: 0 0 5px white;
     }
 
-    /* Ses butonu - renkler ve hover arka plan + yazı rengi ayarlı */
     #sound-toggle {
       padding: 10px 30px;
       background: none !important;
@@ -169,13 +150,13 @@
       transition: all 0.4s ease;
       transform: scale(1);
       box-shadow: none;
-      color: #ff4d4d; /* Başlangıç kırmızı: Sesi Aç */
+      color: #ff4d4d;
       letter-spacing: 1.2px;
       user-select: none;
     }
 
     #sound-toggle.sound-on {
-      color: #27ae60; /* Yeşil: Sesi Kapat */
+      color: #27ae60;
       border-color: #27ae60;
     }
 
@@ -183,20 +164,14 @@
       background-color: rgba(29, 185, 84, 0.2);
       color: #1DB954;
       border-color: #1DB954;
-      box-shadow:
-        0 0 15px rgba(29, 185, 84, 0.6),
-        0 0 25px rgba(29, 185, 84, 0.4),
-        0 0 35px rgba(29, 185, 84, 0.2);
+      box-shadow: 0 0 15px rgba(29, 185, 84, 0.6), 0 0 25px rgba(29, 185, 84, 0.4), 0 0 35px rgba(29, 185, 84, 0.2);
     }
 
     #sound-toggle:hover.sound-on {
       background-color: rgba(255, 77, 77, 0.2);
       color: #ff4d4d;
       border-color: #ff4d4d;
-      box-shadow:
-        0 0 15px rgba(255, 77, 77, 0.6),
-        0 0 25px rgba(255, 77, 77, 0.4),
-        0 0 35px rgba(255, 77, 77, 0.2);
+      box-shadow: 0 0 15px rgba(255, 77, 77, 0.6), 0 0 25px rgba(255, 77, 77, 0.4), 0 0 35px rgba(255, 77, 77, 0.2);
     }
 
     #sound-toggle .icon {
@@ -205,7 +180,6 @@
       color: inherit;
     }
 
-    /* Discord kopyalama bildirimi animasyonlu yapıldı */
     .copy-notification {
       position: fixed;
       top: 20px;
@@ -230,7 +204,6 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    /* Tooltip stil */
     .tooltip {
       position: absolute;
       bottom: -30px;
@@ -266,83 +239,12 @@
       50%{background-position:100% 50%;}
       100%{background-position:0% 50%;}
     }
-
-    /* --- Mobil uyumluluk için eklenen CSS --- */
-    @media (max-width: 768px) {
-      .container {
-        padding-top: 60px;
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .profile-img {
-        width: 120px;
-        height: 120px;
-        margin-bottom: 10px;
-      }
-
-      h1 {
-        font-size: 2.8rem;
-        letter-spacing: 3px;
-      }
-
-      .links-container {
-        gap: 20px;
-        flex-wrap: wrap;
-      }
-
-      a.link-button {
-        width: 50px;
-        height: 50px;
-        font-size: 1rem;
-        padding: 10px;
-      }
-
-      a.link-button i {
-        font-size: 22px;
-      }
-
-      #sound-toggle {
-        padding: 8px 20px;
-        font-size: 1rem;
-        width: 100%;
-        max-width: 250px;
-        margin-top: 15px;
-      }
-    }
-
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 2rem;
-        letter-spacing: 2px;
-      }
-
-      .profile-img {
-        width: 100px;
-        height: 100px;
-      }
-
-      .links-container {
-        gap: 15px;
-      }
-
-      a.link-button {
-        width: 45px;
-        height: 45px;
-        font-size: 0.9rem;
-      }
-
-      a.link-button i {
-        font-size: 20px;
-      }
-    }
   </style>
 
   <script>
     const title = "RYCLES";
     let index = 1;
     let direction = 1;
-
     function animateTitle() {
       document.title = title.substring(0, index);
       if (direction === 1) {
@@ -358,45 +260,34 @@
           index = 1;
         }
       }
-      setTimeout(animateTitle, 500);
+      setTimeout(animateTitle, 700);
     }
-
     window.addEventListener("DOMContentLoaded", animateTitle);
   </script>
 </head>
-<body>
 
+<body>
   <video autoplay loop muted playsinline id="bg-video">
     <source src="tlou2fragman.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
 
   <div class="container">
-    <img
-      src="https://i.postimg.cc/28LXbf5X/4c3b4c884bd07127350319d7d8ebf8b5.jpg"
-      alt="Profil Fotoğrafı"
-      class="profile-img"
-    />
+    <img src="https://i.postimg.cc/28LXbf5X/4c3b4c884bd07127350319d7d8ebf8b5.jpg" alt="Profil Fotoğrafı" class="profile-img" />
     <h1>RYCLES</h1>
-
     <div class="links-container">
       <a href="https://steamcommunity.com/profiles/76561199240495320" class="link-button steam" target="_blank" aria-label="Steam">
-        <i class="fab fa-steam"></i>
-        <span class="tooltip">Steam</span>
+        <i class="fab fa-steam"></i><span class="tooltip">Steam</span>
       </a>
       <a href="https://open.spotify.com/user/s%C3%BCleyman1905.?si=cc89f30e77da4649" class="link-button spotify" target="_blank" aria-label="Spotify">
-        <i class="fab fa-spotify"></i>
-        <span class="tooltip">Spotify</span>
+        <i class="fab fa-spotify"></i><span class="tooltip">Spotify</span>
       </a>
       <a href="#" class="link-button discord" id="discord-copy" title="rycless" aria-label="Discord">
-        <i class="fab fa-discord"></i>
-        <span class="tooltip">Discord</span>
+        <i class="fab fa-discord"></i><span class="tooltip">Discord</span>
       </a>
     </div>
-
     <button id="sound-toggle" aria-pressed="false" aria-label="Sesi Aç">
-      <i class="fas fa-volume-mute icon"></i>
-      Sesi Aç
+      <i class="fas fa-volume-mute icon"></i> Sesi Aç
     </button>
   </div>
 
@@ -405,7 +296,6 @@
   <script>
     const btn = document.getElementById('sound-toggle');
     const video = document.getElementById('bg-video');
-
     btn.addEventListener('click', () => {
       video.muted = !video.muted;
       if (video.muted) {
@@ -419,10 +309,8 @@
       }
     });
 
-    // Discord kopyalama
     const discordBtn = document.getElementById('discord-copy');
     const copyNotification = document.getElementById('copy-notification');
-
     discordBtn.addEventListener('click', () => {
       navigator.clipboard.writeText('rycless').then(() => {
         copyNotification.textContent = 'Discord adı kopyalandı: rycless';
@@ -434,4 +322,7 @@
     });
   </script>
 </body>
-</html> 
+</html>
+
+ 
+
