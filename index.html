@@ -6,7 +6,6 @@
 
   <!-- ✅ Favicon dosyaları -->
   <link rel="icon" href="/favicon.png" type="image/png" />
-
   <link rel="icon" href="favicon.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet" />
   <style>
@@ -18,7 +17,7 @@
       overflow: hidden;
     }
 
-    #bg-video {
+    #bg-video, #bg-video-secondary {
       position: fixed;
       top: 0; left: 0;
       width: 100%;
@@ -26,6 +25,11 @@
       object-fit: cover;
       transform: scale(1.2);
       z-index: -1;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+    #bg-video.hidden, #bg-video-secondary.hidden {
+      opacity: 0;
     }
 
     .container {
@@ -270,7 +274,11 @@
 </head>
 
 <body>
-  <video autoplay loop muted playsinline id="bg-video">
+  <video autoplay muted playsinline id="bg-video">
+    <source src="dexter_heartbeat.mp4" type="video/mp4" />
+    Tarayıcınız video etiketini desteklemiyor.
+  </video>
+  <video muted playsinline id="bg-video-secondary" class="hidden">
     <source src="tlou2fragman.mp4" type="video/mp4" />
     Tarayıcınız video etiketini desteklemiyor.
   </video>
@@ -298,17 +306,20 @@
 
   <script>
     const btn = document.getElementById('sound-toggle');
-    const video = document.getElementById('bg-video');
+    const videoPrimary = document.getElementById('bg-video');
+    const videoSecondary = document.getElementById('bg-video-secondary');
     btn.addEventListener('click', () => {
-      video.muted = !video.muted;
-      if (video.muted) {
-        btn.innerHTML = '<i class="fas fa-volume-mute icon"></i> Sesi Aç';
-        btn.setAttribute('aria-pressed', 'false');
-        btn.classList.remove('sound-on');
-      } else {
+      const isMuted = videoPrimary.muted;
+      videoPrimary.muted = !isMuted;
+      videoSecondary.muted = !isMuted;
+      if (isMuted) {
         btn.innerHTML = '<i class="fas fa-volume-high icon"></i> Sesi Kapat';
         btn.setAttribute('aria-pressed', 'true');
         btn.classList.add('sound-on');
+      } else {
+        btn.innerHTML = '<i class="fas fa-volume-mute icon"></i> Sesi Aç';
+        btn.setAttribute('aria-pressed', 'false');
+        btn.classList.remove('sound-on');
       }
     });
 
@@ -323,8 +334,38 @@
         }, 2000);
       });
     });
+
+    // Video listesi ve döngü mantığı
+    const videoList = [
+      'dexter_heartbeat.mp4',
+      'tlou2fragman.mp4'
+    ];
+    let currentVideoIndex = 0;
+
+    function switchVideo() {
+      const nextVideoIndex = (currentVideoIndex + 1) % videoList.length;
+      const nextVideoSrc = videoList[nextVideoIndex];
+      const currentVideo = currentVideoIndex === 0 ? videoPrimary : videoSecondary;
+      const nextVideo = currentVideoIndex === 0 ? videoSecondary : videoPrimary;
+
+      // Bir sonraki videoyu hazırla
+      nextVideo.src = nextVideoSrc;
+      nextVideo.load();
+      nextVideo.classList.remove('hidden');
+
+      // Çapraz solma efekti
+      setTimeout(() => {
+        currentVideo.classList.add('hidden');
+        nextVideo.play().catch(err => console.error('Video oynatma hatası:', err));
+        currentVideoIndex = nextVideoIndex;
+
+        // Bir sonraki geçiş için olay dinleyiciyi güncelle
+        nextVideo.onended = switchVideo;
+      }, 1000); // Geçiş süresi (1 saniye)
+    }
+
+    // İlk videodan ikinciye geçiş için olay dinleyici
+    videoPrimary.onended = switchVideo;
   </script>
 </body>
 </html>
-
-
