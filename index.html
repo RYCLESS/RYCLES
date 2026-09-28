@@ -2,370 +2,2397 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title> </title> <!-- index.html yazısını engellemek için boşluk bırakıldı -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#1a0a2e" />
+  <meta name="description" content="RYCLES - Personal page" />
 
-  <!-- ✅ Favicon dosyaları -->
+  <meta property="og:title" content="RYCLES" />
+  <meta property="og:description" content="Personal page of RYCLES" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rycles.online/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <title>RYCLES</title>
+
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="icon" href="favicon.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap" rel="stylesheet" />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
   <style>
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
-    html, body {
-      margin: 0; padding: 0; height: 100%;
-      font-family: Arial, sans-serif;
-      color: white;
-      overflow: hidden;
+    :root {
+      --purple: #9b5cff;
+      --purple-light: #c18cff;
+      --purple-dark: #6d28d9;
+      --bg: #08040d;
+      --mouse-x: 50%;
+      --mouse-y: 50%;
     }
 
-    #bg-video, #bg-video-secondary {
-      position: fixed;
-      top: 0; left: 0;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html,
+    body {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transform: scale(1.2);
-      z-index: -1;
-      opacity: 1;
-      transition: opacity 1s ease;
+      overflow: hidden;
+      background: var(--bg);
+      font-family: "Poppins", sans-serif;
     }
-    #bg-video.hidden, #bg-video-secondary.hidden {
+
+    body {
+      position: relative;
+      color: white;
+    }
+
+    /* =========================
+       START SCREEN
+    ========================= */
+
+    #start-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #000;
+
+      cursor: pointer;
+
+      transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+    }
+
+    #start-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .start-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .start-text {
+      color: #fff;
+
+      font-size: clamp(50px, 10vw, 110px);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+
+      text-shadow:
+        0 0 15px rgba(255, 255, 255, 0.35),
+        0 0 40px rgba(155, 92, 255, 0.35);
+
+      animation: startPulse 1.8s ease-in-out infinite;
+
+      user-select: none;
+    }
+
+    @keyframes startPulse {
+      0%,
+      100% {
+        opacity: 0.65;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.04);
+      }
+    }
+
+    /* =========================
+       BACKGROUND VIDEOS
+    ========================= */
+
+    #bg-video,
+    #bg-video-secondary {
+      position: fixed;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      z-index: 0;
+
+      opacity: 1;
+
+      transition: opacity 0.7s ease;
+
+      background: #08040d;
+    }
+
+    #bg-video-secondary {
       opacity: 0;
     }
+
+    #bg-video.hidden,
+    #bg-video-secondary.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+
+      z-index: 1;
+
+      pointer-events: none;
+
+      background:
+        radial-gradient(
+          circle at var(--mouse-x) var(--mouse-y),
+          rgba(145, 70, 255, 0.12),
+          transparent 32%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0.2),
+          rgba(0, 0, 0, 0.72)
+        );
+    }
+
+    /* =========================
+       MOUSE LIGHT
+    ========================= */
+
+    .mouse-light {
+      position: fixed;
+
+      width: 420px;
+      height: 420px;
+
+      left: var(--mouse-x);
+      top: var(--mouse-y);
+
+      transform: translate(-50%, -50%);
+
+      border-radius: 50%;
+
+      pointer-events: none;
+
+      z-index: 2;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(155, 92, 255, 0.07) 0%,
+          rgba(155, 92, 255, 0.025) 30%,
+          transparent 70%
+        );
+
+      filter: blur(5px);
+
+      transition:
+        left 0.15s ease-out,
+        top 0.15s ease-out;
+    }
+
+    /* =========================
+       GRAIN
+    ========================= */
+
+    .grain {
+      position: fixed;
+
+      inset: -50%;
+
+      width: 200%;
+      height: 200%;
+
+      z-index: 4;
+
+      pointer-events: none;
+
+      opacity: 0.055;
+
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+      animation:
+        grainMove 0.25s steps(2) infinite;
+    }
+
+    @keyframes grainMove {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      25% {
+        transform: translate(-2%, 1%);
+      }
+
+      50% {
+        transform: translate(1%, -2%);
+      }
+
+      75% {
+        transform: translate(2%, 2%);
+      }
+
+      100% {
+        transform: translate(-1%, -1%);
+      }
+    }
+
+    /* =========================
+       PARTICLES
+    ========================= */
+
+    #particles {
+      position: fixed;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      z-index: 3;
+
+      pointer-events: none;
+    }
+
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
 
     .container {
       position: relative;
+
       z-index: 10;
+
+      width: 100%;
+      min-height: 100%;
+
+      padding: 35px 20px 40px;
+
       text-align: center;
-      padding-top: 100px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1s forwards ease-out;
-    }
 
-    .profile-img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid #9B59B6;
-      object-fit: cover;
-      margin-bottom: 5px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-
-    .profile-img:hover {
-      transform: scale(1.1) rotate(5deg);
-      box-shadow: 0 0 15px #9B59B6;
-    }
-
-    h1 {
-      font-family: 'Poppins', cursive, Arial, sans-serif;
-      font-weight: 900;
-      font-size: 4rem;
-      background: linear-gradient(270deg, #A569BD, #DDA0DD, #9B59B6, #7D3C98);
-      background-size: 800% 800%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 8s ease infinite;
-      letter-spacing: 5px;
-      margin: 0 0 15px 0;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: color 0.4s ease, text-shadow 0.4s ease;
-      cursor: default;
-    }
-
-    h1:hover {
-      filter: drop-shadow(0 0 10px #DDA0DD);
-    }
-
-    .links-container {
       display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-bottom: 15px;
-    }
-
-    a.link-button {
-      padding: 12px 30px;
-      border: 2px solid #9B59B6;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: bold;
-      display: inline-flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      width: 60px;
-      height: 60px;
-      position: relative;
-      color: inherit;
-      transition: all 0.4s ease;
-      transform: scale(1);
-      box-shadow: none;
-      cursor: pointer;
-    }
 
-    a.link-button i {
-      pointer-events: none;
-      font-size: 28px;
-    }
-
-    a.link-button.steam i { color: #171A21; }
-    a.link-button.spotify i { color: #1DB954; }
-    a.link-button.discord i { color: #7289DA; }
-
-    a.link-button.steam:hover {
-      background-color: rgba(23, 26, 33, 0.8);
-      border-color: #171A21;
-      box-shadow: 0 0 15px rgba(23, 26, 33, 0.8), 0 0 25px rgba(23, 26, 33, 0.8), 0 0 35px rgba(23, 26, 33, 0.8);
-      color: #171A21;
-    }
-
-    a.link-button.spotify:hover {
-      background-color: rgba(29, 185, 84, 0.85);
-      border-color: #1DB954;
-      box-shadow: 0 0 15px rgba(29, 185, 84, 0.85), 0 0 25px rgba(29, 185, 84, 0.85), 0 0 35px rgba(29, 185, 84, 0.85);
-      color: #1DB954;
-    }
-
-    a.link-button.discord:hover {
-      background-color: rgba(114, 137, 218, 0.85);
-      border-color: #7289DA;
-      box-shadow: 0 0 15px rgba(114, 137, 218, 0.85), 0 0 25px rgba(114, 137, 218, 0.85), 0 0 35px rgba(114, 137, 218, 0.85);
-      color: #7289DA;
-    }
-
-    a.link-button:hover {
-      transform: scale(1.15) rotate(-3deg);
-      text-shadow: 0 0 5px white;
-    }
-
-    #sound-toggle {
-      padding: 10px 30px;
-      background: none !important;
-      border: 2px solid #9B59B6;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      margin: 0 auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: max-content;
-      font-size: 1.1rem;
-      transition: all 0.4s ease;
-      transform: scale(1);
-      box-shadow: none;
-      color: #ff4d4d;
-      letter-spacing: 1.2px;
-      user-select: none;
-    }
-
-    #sound-toggle.sound-on {
-      color: #27ae60;
-      border-color: #27ae60;
-    }
-
-    #sound-toggle:hover:not(.sound-on) {
-      background-color: rgba(29, 185, 84, 0.2);
-      color: #1DB954;
-      border-color: #1DB954;
-      box-shadow: 0 0 15px rgba(29, 185, 84, 0.6), 0 0 25px rgba(29, 185, 84, 0.4), 0 0 35px rgba(29, 185, 84, 0.2);
-    }
-
-    #sound-toggle:hover.sound-on {
-      background-color: rgba(255, 77, 77, 0.2);
-      color: #ff4d4d;
-      border-color: #ff4d4d;
-      box-shadow: 0 0 15px rgba(255, 77, 77, 0.6), 0 0 25px rgba(255, 77, 77, 0.4), 0 0 35px rgba(255, 77, 77, 0.2);
-    }
-
-    #sound-toggle .icon {
-      font-size: 1.3rem;
-      transition: color 0.4s ease;
-      color: inherit;
-    }
-
-    .copy-notification {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px);
-      background-color: #2ECC71;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      z-index: 999;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
       opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+
+      transform: translateY(20px);
+
+      animation:
+        mainReveal 0.8s 0.05s forwards ease-out;
+
+      will-change: transform;
     }
 
-    .copy-notification.show {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .tooltip {
-      position: absolute;
-      bottom: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0,0,0,0.75);
-      color: white;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      user-select: none;
-      z-index: 20;
-    }
-
-    a.link-button:hover .tooltip {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    @keyframes fadeInUp {
+    @keyframes mainReveal {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    @keyframes gradientShift {
-      0%{background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
+    /* =========================
+       PROFILE
+    ========================= */
+
+    .profile-wrapper {
+      position: relative;
+
+      width: 150px;
+      height: 150px;
+
+      margin-bottom: 25px;
+
+      perspective: 900px;
+
+      opacity: 0;
+
+      animation:
+        profileReveal 0.8s 0.2s forwards ease-out;
+    }
+
+    @keyframes profileReveal {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .profile-img {
+      position: relative;
+
+      z-index: 3;
+
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      border-radius: 50%;
+
+      border: 2px solid rgba(255, 255, 255, 0.85);
+
+      box-shadow:
+        0 0 25px rgba(155, 92, 255, 0.4),
+        0 0 60px rgba(155, 92, 255, 0.2);
+
+      transition:
+        transform 0.15s ease-out,
+        box-shadow 0.4s ease;
+    }
+
+    .profile-glow {
+      position: absolute;
+
+      inset: -15px;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(155, 92, 255, 0.32),
+          transparent 70%
+        );
+
+      filter: blur(15px);
+
+      animation:
+        profileGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes profileGlow {
+      0%,
+      100% {
+        transform: scale(0.95);
+        opacity: 0.55;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 0.9;
+      }
+    }
+
+    .profile-ring {
+      position: absolute;
+
+      inset: -8px;
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(193, 140, 255, 0.65);
+
+      box-shadow:
+        0 0 12px rgba(155, 92, 255, 0.55),
+        inset 0 0 12px rgba(155, 92, 255, 0.2);
+
+      animation:
+        ringRotate 8s linear infinite;
+    }
+
+    @keyframes ringRotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* =========================
+       TITLE
+    ========================= */
+
+    #mainTitle {
+      display: flex;
+      justify-content: center;
+
+      margin-bottom: 32px;
+
+      font-size: clamp(42px, 8vw, 72px);
+
+      font-weight: 900;
+
+      letter-spacing: 0.12em;
+
+      line-height: 1;
+
+      cursor: pointer;
+
+      user-select: none;
+
+      filter:
+        drop-shadow(0 0 8px rgba(155, 92, 255, 0.5))
+        drop-shadow(0 0 22px rgba(155, 92, 255, 0.18));
+
+      opacity: 0;
+
+      animation:
+        titleReveal 0.8s 0.4s forwards ease-out;
+    }
+
+    @keyframes titleReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+
+        filter:
+          drop-shadow(0 0 8px rgba(155, 92, 255, 0.5))
+          drop-shadow(0 0 22px rgba(155, 92, 255, 0.18));
+      }
+    }
+
+    #mainTitle span {
+      display: inline-block;
+
+      background:
+        linear-gradient(
+          120deg,
+          #ffffff,
+          #c18cff,
+          #8b5cf6,
+          #ffffff
+        );
+
+      background-size: 250% 250%;
+
+      -webkit-background-clip: text;
+      background-clip: text;
+
+      color: transparent;
+
+      animation:
+        gradientText 4s ease infinite;
+
+      transition:
+        transform 0.25s ease,
+        text-shadow 0.25s ease;
+    }
+
+    #mainTitle span:hover {
+      transform:
+        translateY(-5px)
+        scale(1.08);
+
+      text-shadow:
+        0 0 10px rgba(193, 140, 255, 0.8),
+        0 0 25px rgba(155, 92, 255, 0.5);
+    }
+
+    @keyframes gradientText {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* =========================
+       SOCIAL BUTTONS
+    ========================= */
+
+    .links-container {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 18px;
+
+      opacity: 0;
+
+      animation:
+        linksReveal 0.8s 0.55s forwards ease-out;
+    }
+
+    @keyframes linksReveal {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    a.link-button {
+      width: 60px;
+      height: 60px;
+
+      border: 2px solid var(--purple);
+
+      border-radius: 50%;
+
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      position: relative;
+
+      text-decoration: none;
+
+      background:
+        rgba(20, 8, 35, 0.5);
+
+      backdrop-filter: blur(8px);
+
+      transition:
+        transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+    a.link-button i {
+      font-size: 23px;
+
+      pointer-events: none;
+
+      transition:
+        transform 0.25s ease;
+    }
+
+    a.link-button:hover {
+      transform:
+        translateY(-7px)
+        scale(1.08);
+
+      background:
+        rgba(155, 92, 255, 0.18);
+
+      border-color:
+        var(--purple-light);
+
+      box-shadow:
+        0 0 18px rgba(155, 92, 255, 0.45),
+        0 0 40px rgba(155, 92, 255, 0.15);
+    }
+
+    a.link-button:hover i {
+      transform: scale(1.15);
+    }
+
+    .steam {
+      color: #ffffff;
+    }
+
+    .spotify {
+      color: #1ed760;
+    }
+
+    .discord {
+      color: #5865f2;
+    }
+
+    .tooltip {
+      position: absolute;
+
+      bottom: -42px;
+      left: 50%;
+
+      transform:
+        translateX(-50%)
+        translateY(5px);
+
+      padding: 6px 10px;
+
+      border-radius: 7px;
+
+      background:
+        rgba(10, 5, 18, 0.92);
+
+      border:
+        1px solid rgba(155, 92, 255, 0.25);
+
+      color: white;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      white-space: nowrap;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+
+      backdrop-filter: blur(8px);
+    }
+
+    .link-button:hover .tooltip {
+      opacity: 1;
+
+      transform:
+        translateX(-50%)
+        translateY(0);
+    }
+
+    /* =========================
+       SOUND PANEL
+    ========================= */
+
+    .sound-panel {
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      margin-top: 34px;
+
+      padding: 9px 13px;
+
+      border-radius: 20px;
+
+      background:
+        rgba(12, 5, 22, 0.55);
+
+      border:
+        1px solid rgba(155, 92, 255, 0.22);
+
+      backdrop-filter: blur(10px);
+
+      opacity: 0;
+
+      animation:
+        soundReveal 0.8s 0.7s forwards ease-out;
+    }
+
+    @keyframes soundReveal {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #sound-toggle {
+      width: 28px;
+      height: 28px;
+
+      border: none;
+
+      background: transparent;
+
+      color: white;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      font-size: 15px;
+
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    #sound-toggle:hover {
+      color:
+        var(--purple-light);
+
+      transform:
+        scale(1.12);
+    }
+
+    .volume-slider {
+      width: 95px;
+      height: 4px;
+
+      appearance: none;
+      -webkit-appearance: none;
+
+      background:
+        rgba(255, 255, 255, 0.18);
+
+      border-radius: 5px;
+
+      outline: none;
+
+      cursor: pointer;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      appearance: none;
+      -webkit-appearance: none;
+
+      width: 13px;
+      height: 13px;
+
+      border-radius: 50%;
+
+      background:
+        var(--purple-light);
+
+      box-shadow:
+        0 0 8px rgba(155, 92, 255, 0.7);
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 13px;
+      height: 13px;
+
+      border: none;
+
+      border-radius: 50%;
+
+      background:
+        var(--purple-light);
+
+      box-shadow:
+        0 0 8px rgba(155, 92, 255, 0.7);
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+      position: fixed;
+
+      left: 50%;
+      bottom: 30px;
+
+      transform:
+        translateX(-50%)
+        translateY(20px);
+
+      z-index: 100;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 9px;
+
+      padding: 11px 17px;
+
+      border-radius: 12px;
+
+      background:
+        rgba(15, 7, 25, 0.92);
+
+      border:
+        1px solid rgba(155, 92, 255, 0.35);
+
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(155, 92, 255, 0.12);
+
+      backdrop-filter: blur(12px);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+
+      transform:
+        translateX(-50%)
+        translateY(0);
+    }
+
+    .toast i {
+      color:
+        #8b5cf6;
+    }
+
+    /* =========================
+       GLITCH
+    ========================= */
+
+    .glitch {
+      animation:
+        glitchEffect 0.35s linear !important;
+    }
+
+    @keyframes glitchEffect {
+      0% {
+        transform: translate(0);
+      }
+
+      20% {
+        transform: translate(-3px, 2px);
+      }
+
+      40% {
+        transform: translate(3px, -2px);
+      }
+
+      60% {
+        transform: translate(-2px, -1px);
+      }
+
+      80% {
+        transform: translate(2px, 1px);
+      }
+
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 480px) {
+
+      .container {
+        padding-top: 25px;
+      }
+
+      .profile-wrapper {
+        width: 125px;
+        height: 125px;
+
+        margin-bottom: 22px;
+      }
+
+      #mainTitle {
+        margin-bottom: 28px;
+
+        font-size: 45px;
+      }
+
+      .links-container {
+        gap: 14px;
+      }
+
+      a.link-button {
+        width: 54px;
+        height: 54px;
+      }
+
+      a.link-button i {
+        font-size: 21px;
+      }
+
+      .sound-panel {
+        margin-top: 30px;
+      }
+
+      .mouse-light {
+        display: none;
+      }
+    }
+
+    /* =========================
+       REDUCED MOTION
+    ========================= */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+
+        animation-iteration-count: 1 !important;
+
+        transition-duration: 0.01ms !important;
+      }
+
+      .grain {
+        animation: none;
+      }
     }
   </style>
-
-  <script>
-    const title = "RYCLES";
-    let index = 1;
-    let direction = 1;
-    function animateTitle() {
-      document.title = title.substring(0, index);
-      if (direction === 1) {
-        index++;
-        if (index > title.length) {
-          direction = -1;
-          index = title.length - 1;
-        }
-      } else {
-        index--;
-        if (index < 1) {
-          direction = 1;
-          index = 1;
-        }
-      }
-      setTimeout(animateTitle, 700);
-    }
-    window.addEventListener("DOMContentLoaded", animateTitle);
-  </script>
 </head>
 
 <body>
-  <video autoplay muted playsinline id="bg-video">
-    <source src="dexter_heartbeat.mp4" type="video/mp4" />
-    Tarayıcınız video etiketini desteklemiyor.
-  </video>
-  <video muted playsinline id="bg-video-secondary" class="hidden">
-    <source src="tlou2fragman.mp4" type="video/mp4" />
-    Tarayıcınız video etiketini desteklemiyor.
-  </video>
 
-  <div class="container">
-    <img src="https://i.postimg.cc/8C5FGJgn/Chat-GPT-Image-2-May-2026-22-39-24.png" alt="Profil Fotoğrafı" class="profile-img" />
-    <h1>RYCLES</h1>
-    <div class="links-container">
-      <a href="https://steamcommunity.com/profiles/76561199240495320" class="link-button steam" target="_blank" aria-label="Steam">
-        <i class="fab fa-steam"></i><span class="tooltip">Steam</span>
-      </a>
-      <a href="https://open.spotify.com/user/s%C3%BCleyman1905.?si=cc89f30e77da4649" class="link-button spotify" target="_blank" aria-label="Spotify">
-        <i class="fab fa-spotify"></i><span class="tooltip">Spotify</span>
-      </a>
-      <a href="#" class="link-button discord" id="discord-copy" title="rycless" aria-label="Discord">
-        <i class="fab fa-discord"></i><span class="tooltip">Discord</span>
-      </a>
+  <!-- =========================
+       START SCREEN
+  ========================= -->
+
+  <div id="start-screen">
+    <div class="start-content">
+      <div class="start-text">TIKLA</div>
     </div>
-    <button id="sound-toggle" aria-pressed="false" aria-label="Sesi Aç">
-      <i class="fas fa-volume-mute icon"></i> Sesi Aç
-    </button>
   </div>
 
-  <div id="copy-notification" class="copy-notification" role="alert" aria-live="assertive">Kopyalandı!</div>
+
+  <!-- =========================
+       BACKGROUND VIDEOS
+  ========================= -->
+
+  <video
+    autoplay
+    muted
+    playsinline
+    preload="auto"
+    id="bg-video"
+  ></video>
+
+  <video
+    muted
+    playsinline
+    preload="auto"
+    id="bg-video-secondary"
+    class="hidden"
+  ></video>
+
+
+  <div class="overlay"></div>
+
+  <div class="mouse-light"></div>
+
+  <div class="grain"></div>
+
+  <canvas id="particles"></canvas>
+
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
+  <div class="container" id="mainContainer">
+
+    <div
+      class="profile-wrapper"
+      id="profileWrapper"
+    >
+
+      <div class="profile-glow"></div>
+
+      <div class="profile-ring"></div>
+
+      <img
+        src="https://i.postimg.cc/8C5FGJgn/Chat-GPT-Image-2-May-2026-22-39-24.png"
+        alt="RYCLES profil fotoğrafı"
+        class="profile-img"
+        id="profileImg"
+      />
+
+    </div>
+
+
+    <h1
+      id="mainTitle"
+      aria-label="RYCLES"
+    >
+      <span>R</span>
+      <span>Y</span>
+      <span>C</span>
+      <span>L</span>
+      <span>E</span>
+      <span>S</span>
+    </h1>
+
+
+    <div class="links-container">
+
+      <a
+        href="https://steamcommunity.com/profiles/76561199240495320"
+        class="link-button steam"
+        target="_blank"
+        rel="noopener"
+        aria-label="Steam"
+      >
+        <i class="fab fa-steam"></i>
+
+        <span class="tooltip">
+          Steam
+        </span>
+      </a>
+
+
+      <a
+        href="https://open.spotify.com/user/s%C3%BCleyman1905.?si=cc89f30e77da4649"
+        class="link-button spotify"
+        target="_blank"
+        rel="noopener"
+        aria-label="Spotify"
+      >
+        <i class="fab fa-spotify"></i>
+
+        <span class="tooltip">
+          Spotify
+        </span>
+      </a>
+
+
+      <a
+        href="#"
+        class="link-button discord"
+        id="discord-copy"
+        aria-label="Discord"
+      >
+        <i class="fab fa-discord"></i>
+
+        <span class="tooltip">
+          Discord
+        </span>
+      </a>
+
+    </div>
+
+
+    <!-- SOUND -->
+
+    <div class="sound-panel">
+
+      <button
+        id="sound-toggle"
+        aria-label="Ses"
+      >
+        <i class="fas fa-volume-mute"></i>
+      </button>
+
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="0.01"
+        value="0.7"
+        class="volume-slider"
+        id="volumeSlider"
+        aria-label="Ses seviyesi"
+      />
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       TOAST
+  ========================= -->
+
+  <div
+    class="toast"
+    id="toast"
+  >
+
+    <i class="fas fa-check-circle"></i>
+
+    <span id="toastText">
+      Discord kopyalandı
+    </span>
+
+  </div>
+
 
   <script>
-    const btn = document.getElementById('sound-toggle');
-    const videoPrimary = document.getElementById('bg-video');
-    const videoSecondary = document.getElementById('bg-video-secondary');
-    btn.addEventListener('click', () => {
-      const isMuted = videoPrimary.muted;
-      videoPrimary.muted = !isMuted;
-      videoSecondary.muted = !isMuted;
-      if (isMuted) {
-        btn.innerHTML = '<i class="fas fa-volume-high icon"></i> Sesi Kapat';
-        btn.setAttribute('aria-pressed', 'true');
-        btn.classList.add('sound-on');
-      } else {
-        btn.innerHTML = '<i class="fas fa-volume-mute icon"></i> Sesi Aç';
-        btn.setAttribute('aria-pressed', 'false');
-        btn.classList.remove('sound-on');
-      }
-    });
 
-    const discordBtn = document.getElementById('discord-copy');
-    const copyNotification = document.getElementById('copy-notification');
-    discordBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText('rycless').then(() => {
-        copyNotification.textContent = 'Discord adı kopyalandı: rycless';
-        copyNotification.classList.add('show');
-        setTimeout(() => {
-          copyNotification.classList.remove('show');
-        }, 2000);
-      });
-    });
+    /* =========================================================
+       VIDEO SYSTEM
+    ========================================================= */
 
-    // Video listesi ve döngü mantığı
     const videoList = [
-      'dexter_heartbeat.mp4',
-      'tlou2fragman.mp4'
+      "video1.mp4",
+      "video2.mp4",
+      "video3.mp4",
+      "video4.mp4",
+      "video5.mp4",
+      "video6.mp4",
+      "video7.mp4",
+      "video8.mp4",
+      "video9.mp4",
+      "video10.mp4"
     ];
-    let currentVideoIndex = 0;
+
+
+    const videoPrimary =
+      document.getElementById(
+        "bg-video"
+      );
+
+    const videoSecondary =
+      document.getElementById(
+        "bg-video-secondary"
+      );
+
+    const startScreen =
+      document.getElementById(
+        "start-screen"
+      );
+
+
+    /*
+      Her site girişinde
+      kesinlikle video1
+    */
+
+    let currentIndex = 0;
+
+    let switchingVideo = false;
+
+
+    videoPrimary.src =
+      videoList[0];
+
+    videoPrimary.load();
+
+
+    /*
+      Ses seviyesi
+    */
+
+    const initialVolume =
+      Number(
+        localStorage.getItem(
+          "rycles_volume"
+        ) ?? 0.7
+      );
+
+
+    videoPrimary.volume =
+      initialVolume;
+
+    videoSecondary.volume =
+      initialVolume;
+
+
+    /*
+      İlk başta sessiz.
+      TIKLA'ya basılınca açılacak.
+    */
+
+    videoPrimary.muted = true;
+    videoSecondary.muted = true;
+
+
+    /*
+      TIKLA
+    */
+
+    startScreen.addEventListener(
+      "click",
+      () => {
+
+        /*
+          Açılış ekranını kaldır
+        */
+
+        startScreen.classList.add(
+          "hidden"
+        );
+
+
+        /*
+          Ses aktif
+        */
+
+        soundEnabled = true;
+
+
+        videoPrimary.muted = false;
+
+        videoSecondary.muted = false;
+
+
+        /*
+          Video1'den başla
+        */
+
+        currentIndex = 0;
+
+        videoPrimary.currentTime = 0;
+
+
+        /*
+          Video1'i oynat
+        */
+
+        videoPrimary
+          .play()
+          .catch(() => {});
+
+
+        updateSoundIcon();
+
+      }
+    );
+
+
+    /*
+      Video bittiğinde
+      sıradaki videoya geç
+    */
 
     function switchVideo() {
-      const nextVideoIndex = (currentVideoIndex + 1) % videoList.length;
-      const nextVideoSrc = videoList[nextVideoIndex];
-      const currentVideo = currentVideoIndex === 0 ? videoPrimary : videoSecondary;
-      const nextVideo = currentVideoIndex === 0 ? videoSecondary : videoPrimary;
 
-      // Bir sonraki videoyu hazırla
-      nextVideo.src = nextVideoSrc;
+      if (switchingVideo) {
+        return;
+      }
+
+      switchingVideo = true;
+
+
+      /*
+        Sıradaki video
+      */
+
+      const nextIndex =
+        (currentIndex + 1)
+        % videoList.length;
+
+
+      /*
+        Şu an görünen video
+      */
+
+      const visibleVideo =
+        videoPrimary.classList.contains(
+          "hidden"
+        )
+          ? videoSecondary
+          : videoPrimary;
+
+
+      /*
+        Sıradaki video için
+        diğer video elementini kullan
+      */
+
+      const nextVideo =
+        visibleVideo === videoPrimary
+          ? videoSecondary
+          : videoPrimary;
+
+
+      /*
+        Yeni videonun kaynağı
+      */
+
+      nextVideo.src =
+        videoList[nextIndex];
+
       nextVideo.load();
-      nextVideo.classList.remove('hidden');
 
-      // Çapraz solma efekti
-      setTimeout(() => {
-        currentVideo.classList.add('hidden');
-        nextVideo.play().catch(err => console.error('Video oynatma hatası:', err));
-        currentVideoIndex = nextVideoIndex;
 
-        // Bir sonraki geçiş için olay dinleyiciyi güncelle
-        nextVideo.onended = switchVideo;
-      }, 1000); // Geçiş süresi (1 saniye)
+      const handleCanPlay = () => {
+
+        nextVideo.removeEventListener(
+          "canplay",
+          handleCanPlay
+        );
+
+
+        /*
+          Ses ayarlarını koru
+        */
+
+        nextVideo.volume =
+          visibleVideo.volume;
+
+        nextVideo.muted =
+          visibleVideo.muted;
+
+
+        nextVideo.currentTime = 0;
+
+
+        /*
+          Yeni videoyu göster
+        */
+
+        nextVideo.classList.remove(
+          "hidden"
+        );
+
+        nextVideo.style.opacity = "1";
+
+
+        /*
+          Yeni videoyu oynat
+        */
+
+        nextVideo
+          .play()
+          .catch(() => {});
+
+
+        /*
+          0.7 saniye sonra
+          eski videoyu gizle
+        */
+
+        setTimeout(() => {
+
+          visibleVideo.classList.add(
+            "hidden"
+          );
+
+          visibleVideo.style.opacity =
+            "0";
+
+
+          currentIndex =
+            nextIndex;
+
+
+          switchingVideo =
+            false;
+
+
+          /*
+            Yeni video artık
+            bitince tekrar geçiş yapsın
+          */
+
+          nextVideo.onended =
+            switchVideo;
+
+        }, 700);
+
+      };
+
+
+      nextVideo.addEventListener(
+        "canplay",
+        handleCanPlay
+      );
+
     }
 
-    // İlk videodan ikinciye geçiş için olay dinleyici
-    videoPrimary.onended = switchVideo;
+
+    /*
+      İlk video bittiğinde
+    */
+
+    videoPrimary.onended =
+      switchVideo;
+
+
+    videoSecondary.onended =
+      switchVideo;
+
+
+
+    /* =========================================================
+       SOUND SYSTEM
+    ========================================================= */
+
+    const soundToggle =
+      document.getElementById(
+        "sound-toggle"
+      );
+
+    const volumeSlider =
+      document.getElementById(
+        "volumeSlider"
+      );
+
+
+    const savedVolume =
+      localStorage.getItem(
+        "rycles_volume"
+      );
+
+
+    let volume =
+      savedVolume !== null
+        ? Number(savedVolume)
+        : 0.7;
+
+
+    volumeSlider.value =
+      volume;
+
+
+    videoPrimary.volume =
+      volume;
+
+    videoSecondary.volume =
+      volume;
+
+
+    let soundEnabled = false;
+
+
+    function updateSoundIcon() {
+
+      const icon =
+        soundToggle.querySelector(
+          "i"
+        );
+
+
+      if (
+        !soundEnabled ||
+        volume === 0
+      ) {
+
+        icon.className =
+          "fas fa-volume-mute";
+
+      } else if (
+        volume < 0.5
+      ) {
+
+        icon.className =
+          "fas fa-volume-down";
+
+      } else {
+
+        icon.className =
+          "fas fa-volume-up";
+
+      }
+
+    }
+
+
+    updateSoundIcon();
+
+
+    /*
+      Ses butonu
+    */
+
+    soundToggle.addEventListener(
+      "click",
+      () => {
+
+        soundEnabled =
+          !soundEnabled;
+
+
+        videoPrimary.muted =
+          !soundEnabled;
+
+        videoSecondary.muted =
+          !soundEnabled;
+
+
+        updateSoundIcon();
+
+      }
+    );
+
+
+    /*
+      Ses seviyesi
+    */
+
+    volumeSlider.addEventListener(
+      "input",
+      () => {
+
+        volume =
+          Number(
+            volumeSlider.value
+          );
+
+
+        videoPrimary.volume =
+          volume;
+
+        videoSecondary.volume =
+          volume;
+
+
+        localStorage.setItem(
+          "rycles_volume",
+          String(volume)
+        );
+
+
+        updateSoundIcon();
+
+      }
+    );
+
+
+
+    /* =========================================================
+       M TUŞU
+    ========================================================= */
+
+    document.addEventListener(
+      "keydown",
+      (e) => {
+
+        const tag =
+          document.activeElement?.tagName;
+
+
+        const isTyping =
+          tag === "INPUT" ||
+          tag === "TEXTAREA" ||
+          document.activeElement
+            ?.isContentEditable;
+
+
+        if (isTyping) {
+          return;
+        }
+
+
+        if (
+          e.key.toLowerCase()
+          === "m"
+        ) {
+
+          e.preventDefault();
+
+
+          soundEnabled =
+            !soundEnabled;
+
+
+          videoPrimary.muted =
+            !soundEnabled;
+
+          videoSecondary.muted =
+            !soundEnabled;
+
+
+          updateSoundIcon();
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================================
+       TOAST
+    ========================================================= */
+
+    const toast =
+      document.getElementById(
+        "toast"
+      );
+
+
+    const toastText =
+      document.getElementById(
+        "toastText"
+      );
+
+
+    let toastTimeout;
+
+
+    function showToast(message) {
+
+      toastText.textContent =
+        message;
+
+
+      toast.classList.add(
+        "show"
+      );
+
+
+      clearTimeout(
+        toastTimeout
+      );
+
+
+      toastTimeout =
+        setTimeout(() => {
+
+          toast.classList.remove(
+            "show"
+          );
+
+        }, 2200);
+
+    }
+
+
+
+    /* =========================================================
+       DISCORD COPY
+    ========================================================= */
+
+    const discordButton =
+      document.getElementById(
+        "discord-copy"
+      );
+
+
+    discordButton.addEventListener(
+      "click",
+      async (e) => {
+
+        e.preventDefault();
+
+
+        try {
+
+          await navigator.clipboard
+            .writeText(
+              "rycless"
+            );
+
+
+          const icon =
+            discordButton.querySelector(
+              "i"
+            );
+
+
+          icon.className =
+            "fas fa-check";
+
+
+          showToast(
+            "Discord kopyalandı"
+          );
+
+
+          setTimeout(() => {
+
+            icon.className =
+              "fab fa-discord";
+
+          }, 1200);
+
+
+        } catch {
+
+          showToast(
+            "Discord: rycless"
+          );
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================================
+       PARTICLES
+    ========================================================= */
+
+    const canvas =
+      document.getElementById(
+        "particles"
+      );
+
+
+    const ctx =
+      canvas.getContext("2d");
+
+
+    let particles = [];
+
+
+    let particleMouseX = -1000;
+    let particleMouseY = -1000;
+
+
+    const reducedMotion =
+      window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+
+    function resizeCanvas() {
+
+      canvas.width =
+        window.innerWidth *
+        window.devicePixelRatio;
+
+
+      canvas.height =
+        window.innerHeight *
+        window.devicePixelRatio;
+
+
+      canvas.style.width =
+        window.innerWidth + "px";
+
+
+      canvas.style.height =
+        window.innerHeight + "px";
+
+
+      ctx.setTransform(
+        window.devicePixelRatio,
+        0,
+        0,
+        window.devicePixelRatio,
+        0,
+        0
+      );
+
+
+      createParticles();
+
+    }
+
+
+    function createParticles() {
+
+      particles = [];
+
+
+      const count =
+        window.innerWidth < 600
+          ? 35
+          : 60;
+
+
+      for (
+        let i = 0;
+        i < count;
+        i++
+      ) {
+
+        particles.push({
+
+          x:
+            Math.random() *
+            window.innerWidth,
+
+          y:
+            Math.random() *
+            window.innerHeight,
+
+          size:
+            Math.random() *
+              1.7 +
+            0.5,
+
+          speed:
+            Math.random() *
+              0.35 +
+            0.08,
+
+          opacity:
+            Math.random() *
+              0.45 +
+            0.1
+
+        });
+
+      }
+
+    }
+
+
+    function animateParticles() {
+
+      ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+      );
+
+
+      for (
+        const p of particles
+      ) {
+
+        if (!reducedMotion) {
+
+          p.y -= p.speed;
+
+
+          if (p.y < -10) {
+
+            p.y =
+              window.innerHeight +
+              10;
+
+          }
+
+
+          const dx =
+            particleMouseX -
+            p.x;
+
+
+          const dy =
+            particleMouseY -
+            p.y;
+
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+
+          if (
+            distance < 140
+          ) {
+
+            p.x -=
+              dx * 0.002;
+
+            p.y -=
+              dy * 0.002;
+
+          }
+
+        }
+
+
+        ctx.beginPath();
+
+
+        ctx.arc(
+          p.x,
+          p.y,
+          p.size,
+          0,
+          Math.PI * 2
+        );
+
+
+        ctx.fillStyle =
+          `rgba(193, 140, 255, ${p.opacity})`;
+
+
+        ctx.fill();
+
+      }
+
+
+      /*
+        Particle bağlantıları
+      */
+
+      for (
+        let i = 0;
+        i < particles.length;
+        i++
+      ) {
+
+        for (
+          let j = i + 1;
+          j < particles.length;
+          j++
+        ) {
+
+          const a =
+            particles[i];
+
+          const b =
+            particles[j];
+
+
+          const dx =
+            a.x - b.x;
+
+          const dy =
+            a.y - b.y;
+
+
+          const distance =
+            Math.sqrt(
+              dx * dx +
+              dy * dy
+            );
+
+
+          if (
+            distance < 110
+          ) {
+
+            const opacity =
+              (1 - distance / 110) *
+              0.08;
+
+
+            ctx.beginPath();
+
+
+            ctx.moveTo(
+              a.x,
+              a.y
+            );
+
+
+            ctx.lineTo(
+              b.x,
+              b.y
+            );
+
+
+            ctx.strokeStyle =
+              `rgba(155, 92, 255, ${opacity})`;
+
+
+            ctx.lineWidth =
+              0.6;
+
+
+            ctx.stroke();
+
+          }
+
+        }
+
+      }
+
+
+      requestAnimationFrame(
+        animateParticles
+      );
+
+    }
+
+
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    );
+
+
+    resizeCanvas();
+    animateParticles();
+
+
+
+    /* =========================================================
+       MOUSE PARALLAX
+    ========================================================= */
+
+    const profileImg =
+      document.getElementById(
+        "profileImg"
+      );
+
+
+    const mainContainer =
+      document.getElementById(
+        "mainContainer"
+      );
+
+
+    document.addEventListener(
+      "mousemove",
+      (e) => {
+
+        if (reducedMotion) {
+          return;
+        }
+
+
+        const x =
+          (
+            e.clientX /
+            window.innerWidth -
+            0.5
+          ) * 2;
+
+
+        const y =
+          (
+            e.clientY /
+            window.innerHeight -
+            0.5
+          ) * 2;
+
+
+        document.documentElement
+          .style
+          .setProperty(
+            "--mouse-x",
+            `${e.clientX}px`
+          );
+
+
+        document.documentElement
+          .style
+          .setProperty(
+            "--mouse-y",
+            `${e.clientY}px`
+          );
+
+
+        particleMouseX =
+          e.clientX;
+
+
+        particleMouseY =
+          e.clientY;
+
+
+        const rotateX =
+          y * -12;
+
+
+        const rotateY =
+          x * 12;
+
+
+        profileImg.style.transform =
+          `rotateX(${rotateX}deg)
+           rotateY(${rotateY}deg)
+           scale3d(1.02,1.02,1.02)`;
+
+
+        mainContainer.style.transform =
+          `translate(${x * 8}px, ${y * 6}px)`;
+
+      }
+    );
+
+
+
+    /* =========================================================
+       FIRST VISIT
+    ========================================================= */
+
+    const hasVisited =
+      localStorage.getItem(
+        "rycles_visited"
+      );
+
+
+    if (!hasVisited) {
+
+      setTimeout(() => {
+
+        showToast(
+          "RYCLES'e hoş geldin 👋"
+        );
+
+      }, 1300);
+
+
+      localStorage.setItem(
+        "rycles_visited",
+        "true"
+      );
+
+    }
+
+
+
+    /* =========================================================
+       PROFILE EASTER EGG
+    ========================================================= */
+
+    const profileWrapper =
+      document.getElementById(
+        "profileWrapper"
+      );
+
+
+    let profileClicks = 0;
+
+    let profileClickTimer;
+
+
+    profileWrapper.addEventListener(
+      "click",
+      () => {
+
+        profileClicks++;
+
+
+        clearTimeout(
+          profileClickTimer
+        );
+
+
+        profileClickTimer =
+          setTimeout(() => {
+
+            profileClicks = 0;
+
+          }, 1200);
+
+
+        if (
+          profileClicks >= 5
+        ) {
+
+          showToast(
+            "Tamam tamam, biliyorum havalıyım 😎"
+          );
+
+
+          profileClicks = 0;
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================================
+       TITLE EASTER EGG
+    ========================================================= */
+
+    const mainTitle =
+      document.getElementById(
+        "mainTitle"
+      );
+
+
+    let titleClicks = 0;
+
+    let titleClickTimer;
+
+
+    mainTitle.addEventListener(
+      "click",
+      () => {
+
+        titleClicks++;
+
+
+        clearTimeout(
+          titleClickTimer
+        );
+
+
+        titleClickTimer =
+          setTimeout(() => {
+
+            titleClicks = 0;
+
+          }, 900);
+
+
+        mainTitle.classList.add(
+          "glitch"
+        );
+
+
+        setTimeout(() => {
+
+          mainTitle.classList.remove(
+            "glitch"
+          );
+
+        }, 350);
+
+
+        if (
+          titleClicks >= 3
+        ) {
+
+          showToast(
+            "Burada ne arıyorsun? 👀"
+          );
+
+
+          titleClicks = 0;
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================================
+       SECRET TYPING
+    ========================================================= */
+
+    let secretInput = "";
+
+
+    document.addEventListener(
+      "keydown",
+      (e) => {
+
+        const tag =
+          document.activeElement?.tagName;
+
+
+        const isTyping =
+          tag === "INPUT" ||
+          tag === "TEXTAREA" ||
+          document.activeElement
+            ?.isContentEditable;
+
+
+        if (isTyping) {
+          return;
+        }
+
+
+        secretInput +=
+          e.key.toLowerCase();
+
+
+        if (
+          secretInput.length > 6
+        ) {
+
+          secretInput =
+            secretInput.slice(-6);
+
+        }
+
+
+        if (
+          secretInput ===
+          "rycles"
+        ) {
+
+          showToast(
+            "Gizli mod bulundu 👀"
+          );
+
+
+          mainTitle.classList.add(
+            "glitch"
+          );
+
+
+          setTimeout(() => {
+
+            mainTitle.classList.remove(
+              "glitch"
+            );
+
+          }, 700);
+
+
+          secretInput = "";
+
+        }
+
+      }
+    );
+
+
+
+    /* =========================================================
+       DYNAMIC DOCUMENT TITLE
+    ========================================================= */
+
+    const pageTitle =
+      "RYCLES";
+
+
+    let tIndex = 1;
+
+    let tDir = 1;
+
+
+    function animateTitle() {
+
+      document.title =
+        pageTitle.substring(
+          0,
+          tIndex
+        );
+
+
+      if (
+        tDir === 1
+      ) {
+
+        tIndex++;
+
+
+        if (
+          tIndex >
+          pageTitle.length
+        ) {
+
+          tDir = -1;
+
+          tIndex =
+            pageTitle.length - 1;
+
+        }
+
+      } else {
+
+        tIndex--;
+
+
+        if (
+          tIndex < 1
+        ) {
+
+          tDir = 1;
+
+          tIndex = 1;
+
+        }
+
+      }
+
+
+      setTimeout(
+        animateTitle,
+        700
+      );
+
+    }
+
+
+    window.addEventListener(
+      "DOMContentLoaded",
+      animateTitle
+    );
+
   </script>
+
 </body>
 </html>
